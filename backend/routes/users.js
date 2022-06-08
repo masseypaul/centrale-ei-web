@@ -1,4 +1,5 @@
 const express = require("express");
+const { findOne } = require("../models/user");
 const UserModel = require("../models/user");
 const router = express.Router();
 
@@ -6,6 +7,13 @@ router.get("/", function (req, res) {
   UserModel.find({}).then(function (users) {
     res.json({ users: users });
   });
+});
+
+router.get("/:id/movie", async function (req, res) {
+  try {
+    const id = req.params.id;
+    let doc = await findOne({ _id: id });
+  } catch (error) {}
 });
 
 router.post("/new", function (req, res) {
